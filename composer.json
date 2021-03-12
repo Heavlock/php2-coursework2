@@ -1,0 +1,32 @@
+{
+  "name": "vendor_name/php2mod6",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "monst",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "illuminate/database": "^8.27",
+    "illuminate/events": "^8.27"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/classes/",
+      "Illuminate\\Database\\Eloquent\\": "vendor/illuminate/database/Eloquent",
+      "app\\Model\\": "src/classes/Model/"
+    },
+    "files": [
+      "configs/db.php",
+      "helpers.php"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist",
+    "disable-tls": true,
+    "secure-http": false
+  }
+}

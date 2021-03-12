@@ -43,4 +43,10 @@ class Controller
     public function about(){
         return 'About Page';
     }
+    public function authorization(){
+        return 'Authorization Page';
+    }
+    public function registration(){
+        return 'Registration Page';
+    }
 }

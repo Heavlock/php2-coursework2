@@ -1,5 +1,5 @@
 <?php
-"а";
+
 use App\Router;
 use App\Application;
 

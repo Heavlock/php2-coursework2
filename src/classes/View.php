@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class View implements Renderable
 {
     public string $tempName;
@@ -17,11 +16,11 @@ class View implements Renderable
     public function render()
     {
         $pageData = $this->pageData;
-        require VIEW_DIR . 'header.php';
+        require_once VIEW_DIR . 'header.php';
         if (file_exists(VIEW_DIR . $this->tempName . '.php')) {
-            require VIEW_DIR . $this->tempName . '.php';
+            require_once VIEW_DIR . $this->tempName . '.php';
         }
-        require VIEW_DIR . 'footer.php';
-        return [VIEW_DIR . $this->tempName . '.php', $this->pageData];
+        require_once VIEW_DIR . 'footer.php';
+//        return [VIEW_DIR . $this->tempName . '.php', $this->pageData];
     }
 }

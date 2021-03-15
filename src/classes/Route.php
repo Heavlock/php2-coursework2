@@ -7,54 +7,47 @@ namespace App;
 class Route
 {
     private $method;
-    private $uri;
+    private $path;
+    private $callback;
 
-    public function __construct($uri, $method = 'POST')
+    public function __construct($callback, $path, $method = 'POST')
     {
+        $this->path = $path;
         $this->method = $method;
-        $this->uri = $uri;
+        $this->callback = $callback;
     }
 
-    private function prepareCallback($callback)
+    private function prepareCallback($uri)
     {
-        if ($callback instanceof Controller) {
-            if ($this->getPath() === $callback->uri) {
-                $func = explode('@', $callback->page)[1];
-                return $callback->$func();
-            }
+        if (is_string($this->callback) && strpos($this->callback, 'Controller')) {
+            $controller = new Controller();
+            $func = explode('@', $this->callback)[1];
+            return $controller->$func();
         } else {
-            return call_user_func_array($callback[0], [$callback[2][$callback[1][0]], $callback[2][$callback[1][1]]]);
+            $arguments = explode('/', $uri);
+            return call_user_func_array($this->callback, [$arguments[2], $arguments[4]]);
         }
     }
 
     public function getPath()
     {
-        if ($this->uri === '/') {
-            return $this->uri;
-        }
-        return str_replace('/', '', $this->uri);
+        return $this->path;
     }
 
-    public function match($routerData, $method)
+    public function match($uri, $key, $method)
     {
         if ($method !== $this->method) {
             return false;
         }
-        if (array_key_exists($this->getPath(), $routerData)) {
+
+        if (preg_match('/^' . str_replace(['*', '/'], ['\w+', '\/'], $key) .
+            '$/', $uri)) {
             return true;
         }
-        foreach ($routerData as $key => $elem) {
-            if (preg_match('/^' . str_replace(['*', '/'], ['\w+', '\/'], $key) .
-                '$/', $this->uri)) {
-                $path = $key;
-                break;
-            }
-        }
-        return $path ?? false;
     }
 
-    public function run($callback)
+    public function run($uri = '')
     {
-        return $this->prepareCallback($callback);
+        return $this->prepareCallback($uri);
     }
 }

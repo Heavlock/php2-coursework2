@@ -7,16 +7,7 @@ use App\Model\Book;
 
 class Controller
 {
-    public $uri;
-    public $page;
-
-    public function __construct($uri = '', $page = '')
-    {
-        $this->uri = $uri;
-        $this->page = $page;
-    }
-
-    public function routBooks()
+    public function routeBooks()
     {
         if (!Capsule::schema()->hasTable('books')) {
             Capsule::schema()->create('books', function ($table) {
@@ -29,24 +20,20 @@ class Controller
             $book->createBook('книга 2');
             $book->createBook('книга 3');
         }
-        $books = Book::all();
-        echo '<pre>';
-        foreach ($books as $book) {
-            echo $book->name . PHP_EOL;
-        }
-        echo '</pre>';
+        return new View ('books', ['books' => Book::all()]);
     }
 
-    public function index(){
-        return 'Home Page';
+    public function index()
+    {
+        return new View ('body', ['title' => 'Home Page']);
     }
-    public function about(){
-        return 'About Page';
+
+    public function about()
+    {
+        return new View ('body', ['title' => 'About Page']);
     }
-    public function authorization(){
-        return 'Authorization Page';
-    }
-    public function registration(){
-        return 'Registration Page';
+    public function authorization()
+    {
+        return new View ('auth', ['title' => 'авторизация']);
     }
 }

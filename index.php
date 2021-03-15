@@ -1,5 +1,4 @@
 <?php
-
 use App\Router;
 use App\Application;
 
@@ -12,9 +11,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/src/bootstrap.php';
 $router = new Router();
 
 $router->get('/', '\App\Controller::class' . '@index');
-$router->get('about', '\App\Controller::class' . '@about');
-$router->get('authorization', '\App\Controller::class' . '@authorization');
-$router->get('registration', '\App\Controller::class' . '@registration');
+$router->get('/about', '\App\Controller::class' . '@about');
+$router->get('/authorization', '\App\Controller::class' . '@authorization');
+$router->get('/registration', '\App\Controller::class' . '@registration');
 $router->get('/test/*/test2/*', function ($param1, $param2) {
     return "Test page with param1=$param1 param2=$param2";
 });

@@ -33,4 +33,5 @@ require_once APP_DIR . 'layout/' . 'base/' . 'header.php';
 
     <!-- Custom styles for this template -->
     <link href="/assets/dist/css/product.css" rel="stylesheet">
+    <link href="/assets/dist/css/main.css" rel="stylesheet">
 </head>
